@@ -1,0 +1,20 @@
+#Just a small correction on the code for newbies -- Line 14 should have the ina. before the set_calibration_32V_1A()
+
+from machine import I2C
+from ina219 import INA219
+import time
+
+# Depending on the port, the Pins for SDA and SCL must be specified.
+# See the MicroPython documentation for your port.
+# I2C requires pull-up resistors at SDA and SCL.
+
+i2c = I2C(1)
+ina = INA219(i2c)
+
+ina.set_calibration_32V_1A()
+
+while True:
+    current = ina.current
+    voltage = ina.bus_voltage
+    print("{} mA  {} V".format(current, voltage))
+    time.sleep(1)
